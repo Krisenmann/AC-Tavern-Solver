@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0d2630" />
+    <meta name="application-name" content="Tavern Tactician" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Tavern Tactician" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta
+      name="description"
+      content="Lokaler Zughelfer für Mühle, Fanorona und Dame in Assassin's Creed IV: Black Flag."
+    />
+    <title>Tavern Tactician – AC4 Brettspiel-Solver</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/app-icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <button class="brand" id="brand-home" type="button" aria-label="Zur Spielauswahl">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 5 37 14v16L24 43 11 30V14Z" />
+            <path d="M17 27c5-2 9-8 10-15 2 7 1 14-3 21" />
+          </svg>
+        </span>
+        <span>
+          <strong>Tavern Tactician</strong>
+          <small>Black Flag Brettspiel-Solver</small>
+        </span>
+      </button>
+      <div class="privacy-badge" title="Die Berechnung läuft vollständig in diesem Browser.">
+        <span class="status-dot"></span>
+        Lokal &amp; offline
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="setup-view" id="setup-view" aria-labelledby="setup-title">
+        <div class="hero-copy">
+          <span class="eyebrow">Dein zweiter Blick aufs Brett</span>
+          <h1 id="setup-title">Aus Tavernenglück wird eine klare Strategie.</h1>
+          <p>
+            Spiegle jeden Zug aus Black Flag auf dem Brett. Der Solver prüft die
+            legalen Antworten und zeigt dir die stärkste gefundene Fortsetzung.
+          </p>
+        </div>
+
+        <form class="setup-card" id="setup-form">
+          <fieldset>
+            <legend><span>01</span> Spiel auswählen</legend>
+            <div class="game-picker" role="radiogroup" aria-label="Spiel auswählen">
+              <label class="game-option selected" data-game-card="morris">
+                <input type="radio" name="game" value="morris" checked />
+                <span class="game-glyph morris-glyph" aria-hidden="true">
+                  <i></i><i></i><i></i><b></b>
+                </span>
+                <strong>Mühle</strong>
+                <small>Setzen · schließen · nehmen</small>
+                <span class="checkmark">✓</span>
+              </label>
+              <label class="game-option" data-game-card="fanorona">
+                <input type="radio" name="game" value="fanorona" />
+                <span class="game-glyph fanorona-glyph" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i><i></i>
+                </span>
+                <strong>Fanorona</strong>
+                <small>Annähern · zurückziehen</small>
+                <span class="checkmark">✓</span>
+              </label>
+              <label class="game-option" data-game-card="checkers">
+                <input type="radio" name="game" value="checkers" />
+                <span class="game-glyph checkers-glyph" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i>
+                </span>
+                <strong>Dame</strong>
+                <small>Pflichtschlag · Kettenzüge</small>
+                <span class="checkmark">✓</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="setup-row">
+            <fieldset>
+              <legend><span>02</span> Wer beginnt?</legend>
+              <div class="segmented" role="radiogroup" aria-label="Startspieler auswählen">
+                <label>
+                  <input type="radio" name="starter" value="user" checked />
+                  <span>Ich beginne</span>
+                </label>
+                <label>
+                  <input type="radio" name="starter" value="opponent" />
+                  <span>Gegner beginnt</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend><span>03</span> Rechenstärke</legend>
+              <label class="select-wrap">
+                <select id="strength-select" name="strength" aria-label="Rechenstärke">
+                  <option value="quick">Schnell · ca. 0,4 s</option>
+                  <option value="strong" selected>Stark · ca. 1,5 s</option>
+                  <option value="maximum">Maximum · ca. 4 s</option>
+                </select>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7 5 5 5-5" /></svg>
+              </label>
+            </fieldset>
+          </div>
+
+          <div class="ios-install-hint" id="ios-install-hint" hidden>
+            <span class="install-symbol" aria-hidden="true">⇧</span>
+            <p>
+              <strong>Auf dem iPhone installieren</strong>
+              <small>In Safari: Teilen → Zum Home-Bildschirm → Als Web-App öffnen → Hinzufügen</small>
+            </p>
+          </div>
+
+          <div class="setup-footer">
+            <p><span>●</span> Alles bleibt auf diesem Gerät</p>
+            <button class="primary-btn launch-btn" type="submit">
+              Partie vorbereiten
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="game-view" id="game-view" hidden aria-label="Aktuelle Partie">
+        <div class="game-toolbar">
+          <div>
+            <button class="back-link" id="back-to-setup" type="button">
+              <span aria-hidden="true">←</span> Spielauswahl
+            </button>
+            <div class="game-title-line">
+              <h1 id="active-game-title">Mühle</h1>
+              <span class="turn-badge" id="turn-badge">Dein Zug</span>
+            </div>
+          </div>
+          <div class="toolbar-actions">
+            <button class="icon-btn" id="undo-btn" type="button" title="Letzten Halbzug zurücknehmen" disabled>
+              <span aria-hidden="true">↶</span><span>Zurück</span>
+            </button>
+            <button class="icon-btn" id="fullscreen-btn" type="button" title="Vollbild (F)">
+              <span aria-hidden="true">⛶</span><span>Vollbild</span>
+            </button>
+            <button class="icon-btn" id="restart-btn" type="button" title="Partie neu starten">
+              <span aria-hidden="true">↻</span><span>Neu</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="play-layout">
+          <div class="board-column">
+            <div class="board-frame" id="board-frame" data-game="morris">
+              <div class="board-topline">
+                <div class="player-key user-key">
+                  <span class="key-piece"></span>
+                  <span><strong>Du</strong><small id="user-piece-count">9 Steine</small></span>
+                </div>
+                <div class="board-message" id="board-message">Bereit</div>
+                <div class="player-key opponent-key">
+                  <span><strong>Gegner</strong><small id="opponent-piece-count">9 Steine</small></span>
+                  <span class="key-piece"></span>
+                </div>
+              </div>
+              <canvas id="game-board" aria-label="Interaktives Spielbrett"></canvas>
+              <div class="board-legend">
+                <span><i class="legend-dot recommended"></i> Empfehlung</span>
+                <span><i class="legend-dot legal"></i> mögliche Position</span>
+                <span><i class="legend-dot capture"></i> geschlagen</span>
+              </div>
+            </div>
+            <p class="board-hint" id="board-hint">Die goldenen Steine gehören dir.</p>
+          </div>
+
+          <aside class="control-panel" aria-live="polite">
+            <div class="phase-head">
+              <span class="phase-icon" id="phase-icon" aria-hidden="true">✦</span>
+              <div>
+                <span class="eyebrow" id="phase-eyebrow">Zugempfehlung</span>
+                <h2 id="phase-title">Der beste Zug wird gesucht</h2>
+              </div>
+            </div>
+
+            <p class="phase-copy" id="phase-copy">
+              Die Stellung wird mehrere Züge voraus berechnet.
+            </p>
+
+            <div class="thinking-card" id="thinking-card">
+              <div class="thinking-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div>
+                <strong>Analysiere Stellung …</strong>
+                <small id="thinking-label">Legale Antworten werden verglichen</small>
+              </div>
+            </div>
+
+            <div class="recommendation-card" id="recommendation-card" hidden>
+              <div class="recommendation-label">
+                <span>Empfohlener Zug</span>
+                <span class="confidence-pill" id="confidence-pill">Stark</span>
+              </div>
+              <strong class="move-notation" id="move-notation">D6 setzen</strong>
+              <p id="move-explanation">Öffnet zwei mögliche Mühlen.</p>
+              <div class="analysis-stats" id="analysis-stats">
+                <span><b id="depth-stat">–</b> Tiefe</span>
+                <span><b id="nodes-stat">–</b> Stellungen</span>
+                <span><b id="time-stat">–</b> Zeit</span>
+              </div>
+            </div>
+
+            <div class="entry-card" id="entry-card" hidden>
+              <div class="entry-progress" id="entry-progress"></div>
+              <strong id="entry-title">Gegnerzug auf dem Brett wählen</strong>
+              <p id="entry-help">Erst einen Stein, dann das Zielfeld anklicken.</p>
+              <div class="variant-list" id="variant-list" hidden></div>
+            </div>
+
+            <div class="game-over-card" id="game-over-card" hidden>
+              <span id="game-over-icon">◆</span>
+              <strong id="game-over-title">Partie beendet</strong>
+              <p id="game-over-copy"></p>
+            </div>
+
+            <div class="action-stack" id="action-stack">
+              <button class="primary-btn" id="confirm-btn" type="button" hidden>
+                Zug ausgeführt <span aria-hidden="true">✓</span>
+              </button>
+              <button class="secondary-btn" id="manual-btn" type="button" hidden>
+                Anderen eigenen Zug eingeben
+              </button>
+              <button class="secondary-btn" id="cancel-entry-btn" type="button" hidden>
+                Eingabe abbrechen
+              </button>
+              <button class="primary-btn" id="new-after-game-btn" type="button" hidden>
+                Neue Partie
+              </button>
+            </div>
+
+            <div class="move-log-wrap">
+              <div class="section-heading">
+                <h3>Zugverlauf</h3>
+                <span id="move-counter">0 Züge</span>
+              </div>
+              <ol class="move-log" id="move-log">
+                <li class="empty-log">Noch kein Zug ausgeführt.</li>
+              </ol>
+            </div>
+
+            <details class="rules-details">
+              <summary>Kurzregeln &amp; Bedienung <span>＋</span></summary>
+              <div id="rules-copy"></div>
+            </details>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="engines.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
